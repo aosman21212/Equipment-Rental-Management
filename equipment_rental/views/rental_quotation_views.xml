@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_rental_quotation_list" model="ir.ui.view">
+        <field name="name">rental.quotation.list</field>
+        <field name="model">rental.quotation</field>
+        <field name="arch" type="xml">
+            <list string="Quotations"
+                  decoration-success="state == 'approved'"
+                  decoration-muted="state == 'cancelled'"
+                  decoration-info="state == 'sent'">
+                <field name="name"/>
+                <field name="customer_id"/>
+                <field name="date_quotation"/>
+                <field name="date_valid"/>
+                <field name="site_id"/>
+                <field name="rental_basis"/>
+                <field name="amount_total"/>
+                <field name="currency_id" column_invisible="True"/>
+                <field name="state"/>
+                <field name="user_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_rental_quotation_form" model="ir.ui.view">
+        <field name="name">rental.quotation.form</field>
+        <field name="model">rental.quotation</field>
+        <field name="arch" type="xml">
+            <form string="Rental Quotation">
+                <header>
+                    <button name="action_send" string="Send" type="object"
+                            class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_approve" string="Approve" type="object"
+                            class="btn-success" invisible="state not in ('draft','sent')"/>
+                    <button name="action_create_contract" string="Create Contract" type="object"
+                            class="btn-primary" invisible="state != 'approved'"/>
+                    <button name="action_cancel" string="Cancel" type="object"
+                            invisible="state in ('cancelled','approved')"/>
+                    <button name="action_reset_draft" string="Reset to Draft" type="object"
+                            invisible="state != 'cancelled'"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,sent,approved,cancelled"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="object"
+                                name="action_view_contracts" icon="fa-file-contract">
+                            <field name="contract_count" widget="statinfo" string="Contracts"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group string="Customer Info">
+                            <field name="customer_id"/>
+                            <field name="site_id"/>
+                            <field name="user_id"/>
+                        </group>
+                        <group string="Dates &amp; Terms">
+                            <field name="date_quotation"/>
+                            <field name="date_valid"/>
+                            <field name="rental_basis"/>
+                            <field name="currency_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Equipment Lines" name="lines">
+                            <field name="line_ids">
+                                <list editable="bottom">
+                                    <field name="equipment_id"/>
+                                    <field name="description"/>
+                                    <field name="rental_basis"/>
+                                    <field name="date_from"/>
+                                    <field name="date_to"/>
+                                    <field name="qty"/>
+                                    <field name="unit_price"/>
+                                    <field name="subtotal"/>
+                                    <field name="operator_required"/>
+                                    <field name="operator_id" optional="show"
+                                           invisible="not operator_required"/>
+                                    <field name="currency_id" column_invisible="True"/>
+                                </list>
+                            </field>
+                            <group class="oe_subtotal_footer">
+                                <field name="amount_total" string="Total Amount"
+                                       class="oe_subtotal_footer_separator"/>
+                            </group>
+                        </page>
+                        <page string="Notes" name="notes">
+                            <field name="notes" placeholder="Terms and conditions..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_rental_quotation" model="ir.actions.act_window">
+        <field name="name">Rental Quotations</field>
+        <field name="res_model">rental.quotation</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_state': 'draft'}</field>
+    </record>
+</odoo>

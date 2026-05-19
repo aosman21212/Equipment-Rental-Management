@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ===================== INSPECTION TYPE ===================== -->
+    <record id="view_rental_inspection_type_list" model="ir.ui.view">
+        <field name="name">rental.inspection.type.list</field>
+        <field name="model">rental.inspection.type</field>
+        <field name="arch" type="xml">
+            <list string="Inspection Types">
+                <field name="name"/>
+                <field name="category"/>
+                <field name="cycle_days"/>
+                <field name="active" column_invisible="True"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_rental_inspection_type_form" model="ir.ui.view">
+        <field name="name">rental.inspection.type.form</field>
+        <field name="model">rental.inspection.type</field>
+        <field name="arch" type="xml">
+            <form string="Inspection Type">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="category"/>
+                            <field name="cycle_days"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <field name="description" placeholder="Description..."/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_rental_inspection_type" model="ir.actions.act_window">
+        <field name="name">Inspection Types</field>
+        <field name="res_model">rental.inspection.type</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- ===================== INSPECTION ===================== -->
+    <record id="view_rental_inspection_list" model="ir.ui.view">
+        <field name="name">rental.inspection.list</field>
+        <field name="model">rental.inspection</field>
+        <field name="arch" type="xml">
+            <list string="Inspections"
+                  decoration-danger="state == 'overdue'"
+                  decoration-success="state == 'completed'"
+                  decoration-info="state == 'in_progress'">
+                <field name="name"/>
+                <field name="equipment_id"/>
+                <field name="inspection_type_id"/>
+                <field name="scheduled_date"/>
+                <field name="completed_date"/>
+                <field name="result"/>
+                <field name="inspector_name"/>
+                <field name="state"/>
+                <field name="next_due_date"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_rental_inspection_form" model="ir.ui.view">
+        <field name="name">rental.inspection.form</field>
+        <field name="model">rental.inspection</field>
+        <field name="arch" type="xml">
+            <form string="Inspection">
+                <header>
+                    <button name="action_start" string="Start Inspection" type="object"
+                            class="btn-primary" invisible="state != 'scheduled'"/>
+                    <button name="action_complete" string="Complete" type="object"
+                            class="btn-success" invisible="state != 'in_progress'"/>
+                    <button name="action_mark_overdue" string="Mark Overdue" type="object"
+                            class="btn-danger"
+                            invisible="state in ('completed','overdue')"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="scheduled,in_progress,completed,overdue"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group string="Inspection Details">
+                            <field name="equipment_id"/>
+                            <field name="inspection_type_id"/>
+                            <field name="scheduled_date"/>
+                            <field name="completed_date"/>
+                            <field name="next_due_date"/>
+                        </group>
+                        <group string="Result">
+                            <field name="inspector_name"/>
+                            <field name="result"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Findings" name="findings">
+                            <field name="findings" placeholder="Inspection findings and observations..."/>
+                        </page>
+                        <page string="Certificates Issued" name="certificates">
+                            <field name="certificate_ids">
+                                <list editable="bottom">
+                                    <field name="name"/>
+                                    <field name="certificate_type"/>
+                                    <field name="issue_date"/>
+                                    <field name="expiry_date"/>
+                                    <field name="issuing_authority"/>
+                                    <field name="sticker_color"/>
+                                    <field name="expired"/>
+                                    <field name="equipment_id" optional="hide"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notes" name="notes">
+                            <field name="notes" placeholder="Additional notes..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_rental_inspection" model="ir.actions.act_window">
+        <field name="name">Inspections</field>
+        <field name="res_model">rental.inspection</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- ===================== CERTIFICATE ===================== -->
+    <record id="view_rental_certificate_list" model="ir.ui.view">
+        <field name="name">rental.certificate.list</field>
+        <field name="model">rental.certificate</field>
+        <field name="arch" type="xml">
+            <list string="Certificates"
+                  decoration-danger="sticker_color == 'red'"
+                  decoration-warning="sticker_color == 'yellow'"
+                  decoration-success="sticker_color == 'green'">
+                <field name="name"/>
+                <field name="equipment_id"/>
+                <field name="certificate_type"/>
+                <field name="issuing_authority"/>
+                <field name="issue_date"/>
+                <field name="expiry_date"/>
+                <field name="sticker_color"/>
+                <field name="expired"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_rental_certificate_form" model="ir.ui.view">
+        <field name="name">rental.certificate.form</field>
+        <field name="model">rental.certificate</field>
+        <field name="arch" type="xml">
+            <form string="Certificate">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="equipment_id"/>
+                            <field name="inspection_id"/>
+                            <field name="certificate_type"/>
+                            <field name="issuing_authority"/>
+                        </group>
+                        <group>
+                            <field name="issue_date"/>
+                            <field name="expiry_date"/>
+                            <field name="sticker_color"/>
+                            <field name="expired"/>
+                        </group>
+                    </group>
+                    <field name="notes" placeholder="Notes..."/>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_rental_certificate" model="ir.actions.act_window">
+        <field name="name">Certificates</field>
+        <field name="res_model">rental.certificate</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

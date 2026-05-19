@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ===================== USAGE LOG ===================== -->
+    <record id="view_rental_usage_log_list" model="ir.ui.view">
+        <field name="name">rental.usage.log.list</field>
+        <field name="model">rental.usage.log</field>
+        <field name="arch" type="xml">
+            <list string="Usage Logs">
+                <field name="date"/>
+                <field name="equipment_id"/>
+                <field name="contract_id"/>
+                <field name="site_id"/>
+                <field name="operator_id"/>
+                <field name="start_reading"/>
+                <field name="end_reading"/>
+                <field name="hours_worked"/>
+                <field name="notes"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_rental_usage_log_form" model="ir.ui.view">
+        <field name="name">rental.usage.log.form</field>
+        <field name="model">rental.usage.log</field>
+        <field name="arch" type="xml">
+            <form string="Usage Log">
+                <sheet>
+                    <group>
+                        <group string="Equipment &amp; Contract">
+                            <field name="equipment_id"/>
+                            <field name="contract_id"/>
+                            <field name="date"/>
+                            <field name="site_id"/>
+                            <field name="operator_id"/>
+                        </group>
+                        <group string="Meter Readings">
+                            <field name="start_reading"/>
+                            <field name="end_reading"/>
+                            <field name="hours_worked"/>
+                        </group>
+                    </group>
+                    <field name="notes" placeholder="Notes..."/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_rental_usage_log" model="ir.actions.act_window">
+        <field name="name">Usage Logs</field>
+        <field name="res_model">rental.usage.log</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- ===================== FUEL LOG ===================== -->
+    <record id="view_rental_fuel_log_list" model="ir.ui.view">
+        <field name="name">rental.fuel.log.list</field>
+        <field name="model">rental.fuel.log</field>
+        <field name="arch" type="xml">
+            <list string="Fuel Logs">
+                <field name="date"/>
+                <field name="equipment_id"/>
+                <field name="contract_id"/>
+                <field name="liters"/>
+                <field name="cost_per_liter"/>
+                <field name="total_cost"/>
+                <field name="currency_id" column_invisible="True"/>
+                <field name="meter_reading"/>
+                <field name="filled_by"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_rental_fuel_log_form" model="ir.ui.view">
+        <field name="name">rental.fuel.log.form</field>
+        <field name="model">rental.fuel.log</field>
+        <field name="arch" type="xml">
+            <form string="Fuel Log">
+                <sheet>
+                    <group>
+                        <group string="Equipment &amp; Contract">
+                            <field name="equipment_id"/>
+                            <field name="contract_id"/>
+                            <field name="date"/>
+                            <field name="meter_reading"/>
+                            <field name="filled_by"/>
+                        </group>
+                        <group string="Fuel Details">
+                            <field name="liters"/>
+                            <field name="currency_id"/>
+                            <field name="cost_per_liter"/>
+                            <field name="total_cost"/>
+                        </group>
+                    </group>
+                    <field name="notes" placeholder="Notes..."/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_rental_fuel_log" model="ir.actions.act_window">
+        <field name="name">Fuel Logs</field>
+        <field name="res_model">rental.fuel.log</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- ===================== EXPENSE ===================== -->
+    <record id="view_rental_expense_list" model="ir.ui.view">
+        <field name="name">rental.expense.list</field>
+        <field name="model">rental.expense</field>
+        <field name="arch" type="xml">
+            <list string="Field Expenses"
+                  decoration-success="state == 'approved'"
+                  decoration-danger="state == 'rejected'"
+                  decoration-muted="state == 'draft'">
+                <field name="date"/>
+                <field name="name"/>
+                <field name="equipment_id"/>
+                <field name="contract_id"/>
+                <field name="operator_id"/>
+                <field name="expense_type"/>
+                <field name="amount"/>
+                <field name="currency_id" column_invisible="True"/>
+                <field name="responsibility"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_rental_expense_form" model="ir.ui.view">
+        <field name="name">rental.expense.form</field>
+        <field name="model">rental.expense</field>
+        <field name="arch" type="xml">
+            <form string="Field Expense">
+                <header>
+                    <button name="action_approve" string="Approve" type="object"
+                            class="btn-success" invisible="state != 'draft'"/>
+                    <button name="action_reject" string="Reject" type="object"
+                            class="btn-danger" invisible="state != 'draft'"/>
+                    <button name="action_reset" string="Reset" type="object"
+                            invisible="state == 'draft'"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,approved,rejected"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group string="Expense Info">
+                            <field name="name"/>
+                            <field name="date"/>
+                            <field name="expense_type"/>
+                            <field name="reference"/>
+                        </group>
+                        <group string="Amount &amp; Responsibility">
+                            <field name="currency_id"/>
+                            <field name="amount"/>
+                            <field name="responsibility"/>
+                        </group>
+                    </group>
+                    <group string="Linked To">
+                        <group>
+                            <field name="equipment_id"/>
+                            <field name="contract_id"/>
+                            <field name="operator_id"/>
+                        </group>
+                    </group>
+                    <field name="notes" placeholder="Notes..."/>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_rental_expense" model="ir.actions.act_window">
+        <field name="name">Field Expenses</field>
+        <field name="res_model">rental.expense</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- ===================== PROFITABILITY ===================== -->
+    <record id="view_rental_profitability_list" model="ir.ui.view">
+        <field name="name">rental.profitability.list</field>
+        <field name="model">rental.profitability</field>
+        <field name="arch" type="xml">
+            <list string="Profitability Analysis"
+                  decoration-success="profit &gt; 0"
+                  decoration-danger="profit &lt; 0">
+                <field name="equipment_id"/>
+                <field name="contract_id"/>
+                <field name="period_start"/>
+                <field name="period_end"/>
+                <field name="revenue"/>
+                <field name="fuel_cost"/>
+                <field name="repair_cost"/>
+                <field name="expense_cost"/>
+                <field name="total_cost"/>
+                <field name="profit"/>
+                <field name="margin_pct"/>
+                <field name="currency_id" column_invisible="True"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_rental_profitability_form" model="ir.ui.view">
+        <field name="name">rental.profitability.form</field>
+        <field name="model">rental.profitability</field>
+        <field name="arch" type="xml">
+            <form string="Profitability Analysis">
+                <header>
+                    <button name="action_recompute" string="Recompute" type="object"
+                            class="btn-secondary"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group string="Scope">
+                            <field name="equipment_id"/>
+                            <field name="contract_id"/>
+                            <field name="period_start"/>
+                            <field name="period_end"/>
+                            <field name="currency_id"/>
+                        </group>
+                        <group string="Financials">
+                            <field name="revenue"/>
+                            <field name="fuel_cost"/>
+                            <field name="repair_cost"/>
+                            <field name="expense_cost"/>
+                            <field name="total_cost"/>
+                            <field name="profit"/>
+                            <field name="margin_pct"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_rental_profitability" model="ir.actions.act_window">
+        <field name="name">Profitability Analysis</field>
+        <field name="res_model">rental.profitability</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

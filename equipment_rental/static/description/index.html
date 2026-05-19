@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: #212529; background: #fff; }
+
+        /* ── Hero ── */
+        .hero {
+            background: linear-gradient(135deg, #1a1f2e 0%, #2c3349 60%, #e67300 100%);
+            padding: 60px 40px;
+            text-align: center;
+            color: #fff;
+        }
+        .hero img.logo { width: 90px; height: 90px; border-radius: 18px; margin-bottom: 20px; box-shadow: 0 8px 32px rgba(0,0,0,.4); }
+        .hero h1 { font-size: 36px; font-weight: 700; margin-bottom: 12px; }
+        .hero p  { font-size: 17px; opacity: .85; max-width: 700px; margin: 0 auto 28px; line-height: 1.6; }
+        .badge-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .badge { background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.3);
+                 border-radius: 20px; padding: 6px 16px; font-size: 13px; }
+
+        /* ── Sections ── */
+        section { padding: 52px 40px; }
+        section:nth-child(even) { background: #f8f9fa; }
+        h2 { font-size: 26px; font-weight: 700; margin-bottom: 8px; color: #1a1f2e; }
+        h2 span { color: #e67300; }
+        .section-sub { color: #6c757d; margin-bottom: 36px; font-size: 15px; }
+
+        /* ── Feature grid ── */
+        .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+        .feature-card {
+            background: #fff; border: 1px solid #e9ecef; border-radius: 12px;
+            padding: 28px 24px; transition: box-shadow .2s;
+        }
+        .feature-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,.10); }
+        .feature-icon { font-size: 32px; margin-bottom: 14px; }
+        .feature-card h3 { font-size: 17px; font-weight: 600; margin-bottom: 8px; color: #1a1f2e; }
+        .feature-card p  { font-size: 14px; color: #6c757d; line-height: 1.6; }
+
+        /* ── Screenshots ── */
+        .screenshots { display: flex; flex-direction: column; gap: 48px; }
+        .screenshot-item { display: flex; gap: 36px; align-items: center; }
+        .screenshot-item:nth-child(even) { flex-direction: row-reverse; }
+        .screenshot-item img { width: 62%; border-radius: 10px; border: 1px solid #dee2e6;
+                                box-shadow: 0 4px 20px rgba(0,0,0,.12); }
+        .screenshot-text { flex: 1; }
+        .screenshot-text .tag { display: inline-block; background: #fff3e0; color: #e67300;
+                                 border-radius: 20px; padding: 4px 14px; font-size: 12px;
+                                 font-weight: 600; margin-bottom: 14px; }
+        .screenshot-text h3 { font-size: 22px; font-weight: 700; margin-bottom: 12px; color: #1a1f2e; }
+        .screenshot-text p  { font-size: 14px; color: #6c757d; line-height: 1.7; margin-bottom: 14px; }
+        .screenshot-text ul { padding-left: 18px; }
+        .screenshot-text li { font-size: 14px; color: #495057; line-height: 1.8; }
+
+        /* ── Workflow ── */
+        .workflow { display: flex; gap: 0; flex-wrap: wrap; }
+        .step { flex: 1; min-width: 160px; text-align: center; padding: 24px 16px; position: relative; }
+        .step:not(:last-child)::after {
+            content: "→"; position: absolute; right: -10px; top: 50%; transform: translateY(-50%);
+            font-size: 22px; color: #e67300;
+        }
+        .step-num { width: 48px; height: 48px; border-radius: 50%; background: #e67300;
+                    color: #fff; font-size: 20px; font-weight: 700; line-height: 48px;
+                    margin: 0 auto 12px; }
+        .step h4 { font-size: 14px; font-weight: 600; color: #1a1f2e; margin-bottom: 6px; }
+        .step p  { font-size: 12px; color: #6c757d; }
+
+        /* ── Stats bar ── */
+        .stats { display: flex; gap: 0; flex-wrap: wrap; background: #1a1f2e; border-radius: 12px; overflow: hidden; }
+        .stat { flex: 1; min-width: 160px; padding: 32px 20px; text-align: center; border-right: 1px solid rgba(255,255,255,.08); }
+        .stat:last-child { border-right: none; }
+        .stat .num { font-size: 36px; font-weight: 800; color: #e67300; }
+        .stat .lbl { font-size: 13px; color: rgba(255,255,255,.65); margin-top: 6px; }
+
+        /* ── Compatibility ── */
+        .compat { display: flex; gap: 16px; flex-wrap: wrap; }
+        .compat-item { background: #fff; border: 1px solid #e9ecef; border-radius: 8px;
+                        padding: 14px 20px; font-size: 14px; color: #495057; }
+        .compat-item strong { color: #1a1f2e; display: block; font-size: 15px; }
+
+        /* ── Footer ── */
+        footer { background: #1a1f2e; color: rgba(255,255,255,.6); text-align: center;
+                 padding: 30px 40px; font-size: 13px; }
+        footer a { color: #e67300; text-decoration: none; }
+    </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════
+     HERO
+══════════════════════════════════════════════ -->
+<div class="hero">
+    <img class="logo" src="icon.png" alt="Equipment Rental"/>
+    <h1>Equipment Rental Management Suite</h1>
+    <p>
+        A complete heavy equipment rental platform for rental companies, crane &amp; plant hire operators,
+        and machinery rental businesses — built for Odoo 19.
+    </p>
+    <div class="badge-row">
+        <span class="badge">🏗️ Fleet Management</span>
+        <span class="badge">📋 Contracts &amp; Quotations</span>
+        <span class="badge">🚛 Dispatch &amp; Off-Hire</span>
+        <span class="badge">👷 Operator Compliance</span>
+        <span class="badge">🔧 Workshop &amp; Maintenance</span>
+        <span class="badge">📊 Profitability Analysis</span>
+    </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     STATS
+══════════════════════════════════════════════ -->
+<section style="padding: 40px;">
+    <div class="stats">
+        <div class="stat"><div class="num">24</div><div class="lbl">Data Models</div></div>
+        <div class="stat"><div class="num">10+</div><div class="lbl">Document Workflows</div></div>
+        <div class="stat"><div class="num">4</div><div class="lbl">Security Groups</div></div>
+        <div class="stat"><div class="num">3</div><div class="lbl">PDF Reports</div></div>
+        <div class="stat"><div class="num">10</div><div class="lbl">Auto Sequences</div></div>
+        <div class="stat"><div class="num">19.0</div><div class="lbl">Odoo Version</div></div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     FEATURES
+══════════════════════════════════════════════ -->
+<section>
+    <h2>Everything You Need to Run a <span>Rental Business</span></h2>
+    <p class="section-sub">From inquiry to invoice — manage your entire fleet operation in one place.</p>
+    <div class="features">
+        <div class="feature-card">
+            <div class="feature-icon">🚜</div>
+            <h3>Fleet Registry</h3>
+            <p>Full equipment master with categories, subcategories, make/model, serial numbers, meter tracking (hours &amp; odometer), and a 7-stage status pipeline.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">📋</div>
+            <h3>Quotations &amp; Contracts</h3>
+            <p>Create rental quotations with per-line rental basis (hourly, daily, weekly, monthly, yearly). Convert approved quotations to contracts in one click.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🚛</div>
+            <h3>Dispatch &amp; Off-Hire</h3>
+            <p>Manage equipment dispatch to sites, confirm on-site arrival, and process off-hire returns with condition assessment and damage reporting.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">👷</div>
+            <h3>Operator Management</h3>
+            <p>Track operators with roles (operator, helper, rigger, signalman), license expiry alerts, and competency certifications. Block assignment when credentials expire.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🔍</div>
+            <h3>Inspection &amp; Compliance</h3>
+            <p>Schedule internal and third-party inspections by cycle. Issue certificates with automatic sticker color coding — green, yellow, or red based on expiry proximity.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🔧</div>
+            <h3>Workshop &amp; Maintenance</h3>
+            <p>Log breakdown tickets, create corrective or preventive workshop jobs, track parts usage and downtime. Manage internal vs. external repairs with vendor tracking.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">⛽</div>
+            <h3>Usage &amp; Fuel Tracking</h3>
+            <p>Daily usage logs with hour meter readings. Fuel consumption logs per equipment per contract. Field expense claims (fuel, toll, parking, meals, permits, and more).</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">📊</div>
+            <h3>Profitability Analysis</h3>
+            <p>Machine-wise and contract-wise revenue vs. cost analysis. Aggregates repair costs, fuel, and field expenses to compute net profit and margin per asset.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">📄</div>
+            <h3>PDF Reports</h3>
+            <p>Professional QWeb PDF reports for rental quotations, rental contracts, and dispatch notes — ready to send to customers directly from Odoo.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     RENTAL WORKFLOW
+══════════════════════════════════════════════ -->
+<section>
+    <h2>Complete Rental <span>Lifecycle</span></h2>
+    <p class="section-sub">Every step from inquiry to invoice is covered.</p>
+    <div class="workflow">
+        <div class="step"><div class="step-num">1</div><h4>Quotation</h4><p>Customer inquiry → rental quotation with per-line basis &amp; rates</p></div>
+        <div class="step"><div class="step-num">2</div><h4>Approval</h4><p>Quotation sent, reviewed, and approved by manager</p></div>
+        <div class="step"><div class="step-num">3</div><h4>Contract</h4><p>One-click contract creation from approved quotation</p></div>
+        <div class="step"><div class="step-num">4</div><h4>Dispatch</h4><p>Equipment dispatched to site with driver &amp; vehicle details</p></div>
+        <div class="step"><div class="step-num">5</div><h4>On-Site</h4><p>Usage logs, fuel logs, and field expenses recorded daily</p></div>
+        <div class="step"><div class="step-num">6</div><h4>Off-Hire</h4><p>Equipment returned, condition assessed, damage noted</p></div>
+        <div class="step"><div class="step-num">7</div><h4>Invoice</h4><p>Invoice created directly from contract for billing</p></div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     SCREENSHOTS
+══════════════════════════════════════════════ -->
+<section>
+    <h2>See It In <span>Action</span></h2>
+    <p class="section-sub">A visual tour of the key screens.</p>
+    <div class="screenshots">
+
+        <div class="screenshot-item">
+            <img src="screenshot_01_equipment_kanban.png" alt="Equipment Kanban"/>
+            <div class="screenshot-text">
+                <span class="tag">FLEET</span>
+                <h3>Equipment Fleet — Kanban View</h3>
+                <p>Get a real-time overview of your entire fleet at a glance. Each card shows the equipment name, category, current status (color-coded), daily rate, and deployment site.</p>
+                <ul>
+                    <li>Color-coded status pills: Available, On Rent, Workshop, Reserved, Inspection Hold</li>
+                    <li>Filter by status with a single click</li>
+                    <li>Rates and site visible without opening the record</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="screenshot-item">
+            <img src="screenshot_02_equipment_form.png" alt="Equipment Form"/>
+            <div class="screenshot-text">
+                <span class="tag">FLEET</span>
+                <h3>Equipment Form — Full Detail</h3>
+                <p>Every piece of equipment has a dedicated record with all technical and commercial information, plus smart buttons for instant navigation to related documents.</p>
+                <ul>
+                    <li>Smart buttons: Quotations, Contracts, Inspections, Workshop Jobs, Meter Logs</li>
+                    <li>Status pipeline bar with one-click transitions</li>
+                    <li>Rental rates (hourly, daily, weekly, monthly)</li>
+                    <li>Hour meter &amp; odometer tracking</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="screenshot-item">
+            <img src="screenshot_03_quotations.png" alt="Quotations List"/>
+            <div class="screenshot-text">
+                <span class="tag">RENTALS</span>
+                <h3>Rental Quotations</h3>
+                <p>Manage all rental inquiries and quotations from one list. Status badges make it easy to see what's draft, sent, approved, or cancelled at a glance.</p>
+                <ul>
+                    <li>Per-line rental basis: hourly, daily, weekly, monthly, yearly</li>
+                    <li>Auto-calculated billable quantity from date/time range</li>
+                    <li>One-click contract creation from approved quotations</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="screenshot-item">
+            <img src="screenshot_04_contract_form.png" alt="Contract Form"/>
+            <div class="screenshot-text">
+                <span class="tag">RENTALS</span>
+                <h3>Rental Contract — Lifecycle View</h3>
+                <p>The contract form is the operational hub of each rental job. Smart buttons connect directly to dispatches, invoices, off-hire returns, and field expenses.</p>
+                <ul>
+                    <li>Status bar: Draft → Active → Completed → Cancelled</li>
+                    <li>Multi-equipment contract lines with individual rental basis</li>
+                    <li>Operator assignment per equipment line</li>
+                    <li>Auto-computed subtotals and contract total</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="screenshot-item">
+            <img src="screenshot_05_operators.png" alt="Operators"/>
+            <div class="screenshot-text">
+                <span class="tag">COMPLIANCE</span>
+                <h3>Operator Management</h3>
+                <p>Keep full control of your workforce compliance. The system tracks license expiry dates and flags operators whose credentials are about to expire or have already expired.</p>
+                <ul>
+                    <li>Roles: Operator, Helper, Rigger, Signalman</li>
+                    <li>License number and expiry date tracking</li>
+                    <li>Per-operator competency certificates with expiry</li>
+                    <li>Status flags: Active, Expiring Soon, Expired</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="screenshot-item">
+            <img src="screenshot_06_inspections.png" alt="Inspections"/>
+            <div class="screenshot-text">
+                <span class="tag">COMPLIANCE</span>
+                <h3>Inspections &amp; Certificates</h3>
+                <p>Schedule and track all equipment inspections — both internal checks and mandatory third-party certifications. The system computes next due dates automatically.</p>
+                <ul>
+                    <li>Internal and third-party inspection types with configurable cycles</li>
+                    <li>Pass / Fail / Conditional results with findings notes</li>
+                    <li>Auto-computed next due date from cycle days</li>
+                    <li>Certificate sticker colors: 🟢 green / 🟡 yellow / 🔴 red</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="screenshot-item">
+            <img src="screenshot_07_workshop_kanban.png" alt="Workshop Jobs"/>
+            <div class="screenshot-text">
+                <span class="tag">WORKSHOP</span>
+                <h3>Workshop Jobs — Kanban</h3>
+                <p>Visualise your workshop workload in a Kanban board. Jobs are colour-coded by type and severity so your team knows exactly what to prioritise.</p>
+                <ul>
+                    <li>Job types: Corrective, Preventive, From Inspection, From Breakdown</li>
+                    <li>Severity: Low, Medium, High, Critical</li>
+                    <li>Internal vs. external repair tracking with vendor assignment</li>
+                    <li>Parts usage and downtime hours per job</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="screenshot-item">
+            <img src="screenshot_08_profitability.png" alt="Profitability"/>
+            <div class="screenshot-text">
+                <span class="tag">ANALYSIS</span>
+                <h3>Profitability Analysis</h3>
+                <p>Understand which machines and contracts are making money. The profitability view aggregates revenue against all cost categories to give you a clear margin picture.</p>
+                <ul>
+                    <li>KPI tiles: Total Revenue, Total Costs, Net Profit, Avg. Margin</li>
+                    <li>Revenue bar chart by equipment</li>
+                    <li>Cost breakdown: fuel, repair, field expenses</li>
+                    <li>Net profit and margin % per machine per contract</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     TECHNICAL INFO
+══════════════════════════════════════════════ -->
+<section>
+    <h2>Technical <span>Details</span></h2>
+    <p class="section-sub">Built with best practices for Odoo 19.</p>
+    <div class="features">
+        <div class="feature-card">
+            <div class="feature-icon">🔐</div>
+            <h3>Role-Based Security</h3>
+            <p>Four user groups — <strong>Rental User</strong>, <strong>Dispatcher</strong>, <strong>Manager</strong>, and <strong>Administrator</strong> — with fine-grained access rights per model.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🔗</div>
+            <h3>Dependencies</h3>
+            <p>Integrates with standard Odoo modules: <strong>Discuss</strong> (mail), <strong>Invoicing</strong> (account), <strong>Inventory</strong> (stock), <strong>Purchase</strong>, and <strong>Employees</strong> (hr).</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">📬</div>
+            <h3>Full Chatter Support</h3>
+            <p>All key documents (equipment, quotations, contracts, operators, inspections, workshop jobs) have full chatter with activity scheduling, logging, and followers.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🔢</div>
+            <h3>Auto Sequences</h3>
+            <p>10 automatic reference sequences: EQ/, RQ/, RC/, RD/, ROH/, ROP/, RI/, RW/, RB/, RM/ — configurable per company.</p>
+        </div>
+    </div>
+
+    <div style="margin-top: 36px;">
+        <h3 style="margin-bottom: 16px; color: #1a1f2e;">Compatibility</h3>
+        <div class="compat">
+            <div class="compat-item"><strong>Odoo 19.0</strong>Community &amp; Enterprise</div>
+            <div class="compat-item"><strong>Odoo Online</strong>SaaS / Odoo.com</div>
+            <div class="compat-item"><strong>Odoo.sh</strong>PaaS Platform</div>
+            <div class="compat-item"><strong>On-Premise</strong>Self-hosted</div>
+            <div class="compat-item"><strong>License</strong>LGPL-3</div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════════ -->
+<footer>
+    <p>Developed by <a href="https://leapai.ai">leapai.ai</a> &nbsp;•&nbsp; Odoo 19.0 &nbsp;•&nbsp; LGPL-3 License</p>
+    <p style="margin-top: 8px; opacity: .6;">For support, customisation, or installation assistance, please contact us through our website.</p>
+</footer>
+
+</body>
+</html>

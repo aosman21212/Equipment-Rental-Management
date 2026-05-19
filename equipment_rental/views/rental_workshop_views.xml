@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ===================== WORKSHOP JOB ===================== -->
+    <record id="view_rental_workshop_job_kanban" model="ir.ui.view">
+        <field name="name">rental.workshop.job.kanban</field>
+        <field name="model">rental.workshop.job</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="name"/>
+                <field name="equipment_id"/>
+                <field name="job_type"/>
+                <field name="state"/>
+                <field name="assigned_to"/>
+                <field name="cost"/>
+                <field name="currency_id"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <strong><field name="name"/></strong>
+                            <div><field name="equipment_id"/></div>
+                            <div><field name="job_type"/></div>
+                            <div t-if="record.assigned_to.value">
+                                Assigned: <t t-esc="record.assigned_to.value"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_rental_workshop_job_list" model="ir.ui.view">
+        <field name="name">rental.workshop.job.list</field>
+        <field name="model">rental.workshop.job</field>
+        <field name="arch" type="xml">
+            <list string="Workshop Jobs"
+                  decoration-success="state == 'done'"
+                  decoration-info="state == 'in_progress'"
+                  decoration-muted="state == 'cancelled'">
+                <field name="name"/>
+                <field name="equipment_id"/>
+                <field name="job_type"/>
+                <field name="assigned_to"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="downtime_hours"/>
+                <field name="repair_type"/>
+                <field name="cost"/>
+                <field name="currency_id" column_invisible="True"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_rental_workshop_job_form" model="ir.ui.view">
+        <field name="name">rental.workshop.job.form</field>
+        <field name="model">rental.workshop.job</field>
+        <field name="arch" type="xml">
+            <form string="Workshop Job">
+                <header>
+                    <button name="action_start" string="Start Work" type="object"
+                            class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_done" string="Mark Done" type="object"
+                            class="btn-success" invisible="state != 'in_progress'"/>
+                    <button name="action_cancel" string="Cancel" type="object"
+                            invisible="state in ('done','cancelled')"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,in_progress,done,cancelled"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group string="Job Info">
+                            <field name="equipment_id"/>
+                            <field name="job_type"/>
+                            <field name="inspection_id" invisible="job_type != 'from_inspection'"/>
+                            <field name="breakdown_id" invisible="job_type != 'breakdown'"/>
+                            <field name="assigned_to"/>
+                        </group>
+                        <group string="Scheduling &amp; Cost">
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="downtime_hours"/>
+                            <field name="repair_type"/>
+                            <field name="vendor_id" invisible="repair_type != 'external'"/>
+                            <field name="currency_id"/>
+                            <field name="cost"/>
+                            <field name="total_parts_cost"/>
+                        </group>
+                    </group>
+                    <group string="Description">
+                        <field name="description" nolabel="1" placeholder="Job description..."/>
+                    </group>
+                    <notebook>
+                        <page string="Parts Used" name="parts">
+                            <field name="parts_ids">
+                                <list editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="name"/>
+                                    <field name="qty"/>
+                                    <field name="unit_cost"/>
+                                    <field name="subtotal"/>
+                                    <field name="currency_id" column_invisible="True"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notes" name="notes">
+                            <field name="notes" placeholder="Notes..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_rental_workshop_job" model="ir.actions.act_window">
+        <field name="name">Workshop Jobs</field>
+        <field name="res_model">rental.workshop.job</field>
+        <field name="view_mode">kanban,list,form</field>
+    </record>
+
+    <!-- ===================== BREAKDOWN ===================== -->
+    <record id="view_rental_breakdown_list" model="ir.ui.view">
+        <field name="name">rental.breakdown.list</field>
+        <field name="model">rental.breakdown</field>
+        <field name="arch" type="xml">
+            <list string="Breakdowns"
+                  decoration-danger="severity == 'critical'"
+                  decoration-warning="severity == 'high'"
+                  decoration-success="state == 'closed'">
+                <field name="name"/>
+                <field name="equipment_id"/>
+                <field name="reported_date"/>
+                <field name="reported_by"/>
+                <field name="severity"/>
+                <field name="state"/>
+                <field name="workshop_job_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_rental_breakdown_form" model="ir.ui.view">
+        <field name="name">rental.breakdown.form</field>
+        <field name="model">rental.breakdown</field>
+        <field name="arch" type="xml">
+            <form string="Breakdown Report">
+                <header>
+                    <button name="action_start_repair" string="Start Repair" type="object"
+                            class="btn-primary" invisible="state != 'open'"/>
+                    <button name="action_create_workshop_job" string="Create Workshop Job"
+                            type="object" invisible="workshop_job_id != False or state == 'closed'"/>
+                    <button name="action_resolve" string="Resolve" type="object"
+                            class="btn-success" invisible="state != 'in_progress'"/>
+                    <button name="action_close" string="Close" type="object"
+                            invisible="state != 'resolved'"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="open,in_progress,resolved,closed"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group string="Breakdown Info">
+                            <field name="equipment_id"/>
+                            <field name="reported_date"/>
+                            <field name="reported_by"/>
+                            <field name="severity"/>
+                        </group>
+                        <group string="Resolution">
+                            <field name="workshop_job_id"/>
+                        </group>
+                    </group>
+                    <group string="Description">
+                        <field name="description" nolabel="1" placeholder="Breakdown description..."/>
+                    </group>
+                    <group string="Resolution Notes"
+                           invisible="state not in ('resolved','closed')">
+                        <field name="resolution_notes" nolabel="1"/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_rental_breakdown" model="ir.actions.act_window">
+        <field name="name">Breakdowns</field>
+        <field name="res_model">rental.breakdown</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- ===================== PREVENTIVE MAINTENANCE ===================== -->
+    <record id="view_rental_maintenance_list" model="ir.ui.view">
+        <field name="name">rental.maintenance.list</field>
+        <field name="model">rental.maintenance</field>
+        <field name="arch" type="xml">
+            <list string="Preventive Maintenance"
+                  decoration-danger="state == 'overdue'"
+                  decoration-warning="state == 'due'"
+                  decoration-success="state == 'ok'">
+                <field name="name"/>
+                <field name="equipment_id"/>
+                <field name="maintenance_type"/>
+                <field name="cycle_hours"/>
+                <field name="last_done_date"/>
+                <field name="last_done_hours"/>
+                <field name="next_due_date"/>
+                <field name="next_due_hours"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_rental_maintenance_form" model="ir.ui.view">
+        <field name="name">rental.maintenance.form</field>
+        <field name="model">rental.maintenance</field>
+        <field name="arch" type="xml">
+            <form string="Preventive Maintenance">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group string="Equipment &amp; Type">
+                            <field name="equipment_id"/>
+                            <field name="maintenance_type"/>
+                            <field name="cycle_hours"/>
+                        </group>
+                        <group string="Schedule">
+                            <field name="last_done_date"/>
+                            <field name="last_done_hours"/>
+                            <field name="next_due_date"/>
+                            <field name="next_due_hours"/>
+                            <field name="state"/>
+                        </group>
+                    </group>
+                    <field name="notes" placeholder="Notes..."/>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_rental_maintenance" model="ir.actions.act_window">
+        <field name="name">Preventive Maintenance</field>
+        <field name="res_model">rental.maintenance</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

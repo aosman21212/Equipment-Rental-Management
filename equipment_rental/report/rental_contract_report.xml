@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_rental_contract" model="ir.actions.report">
+        <field name="name">Rental Contract</field>
+        <field name="model">rental.contract</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">equipment_rental.report_rental_contract_template</field>
+        <field name="report_file">equipment_rental.report_rental_contract_template</field>
+        <field name="binding_model_id" ref="model_rental_contract"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_rental_contract_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <h2>Rental Contract</h2>
+                                <h3 t-esc="o.name"/>
+                            </div>
+                            <div class="col-6 text-end">
+                                <div><strong>Start Date:</strong> <span t-esc="o.date_start"/></div>
+                                <div t-if="o.date_end"><strong>End Date:</strong> <span t-esc="o.date_end"/></div>
+                                <div><strong>Status:</strong>
+                                    <span t-esc="dict(o._fields['state'].selection).get(o.state)"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <strong>Customer:</strong><br/>
+                                <address>
+                                    <span t-esc="o.customer_id.name"/><br/>
+                                    <t t-if="o.customer_id.street">
+                                        <span t-esc="o.customer_id.street"/><br/>
+                                    </t>
+                                    <t t-if="o.customer_id.city">
+                                        <span t-esc="o.customer_id.city"/>
+                                    </t>
+                                </address>
+                            </div>
+                            <div class="col-6">
+                                <t t-if="o.site_id">
+                                    <strong>Project Site:</strong><br/>
+                                    <span t-esc="o.site_id.name"/>
+                                </t>
+                                <t t-if="o.quotation_id">
+                                    <div><strong>Quotation Ref:</strong> <span t-esc="o.quotation_id.name"/></div>
+                                </t>
+                            </div>
+                        </div>
+
+                        <table class="table table-sm table-bordered">
+                            <thead class="table-secondary">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Equipment</th>
+                                    <th>Description</th>
+                                    <th>Basis</th>
+                                    <th>From</th>
+                                    <th>To</th>
+                                    <th>Operator</th>
+                                    <th class="text-end">Qty</th>
+                                    <th class="text-end">Unit Price</th>
+                                    <th class="text-end">Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="o.line_ids" t-as="line">
+                                    <tr>
+                                        <td><t t-esc="line_index + 1"/></td>
+                                        <td><t t-esc="line.equipment_id.name"/></td>
+                                        <td><t t-esc="line.description or ''"/></td>
+                                        <td><t t-esc="dict(line._fields['rental_basis'].selection).get(line.rental_basis) if line.rental_basis else ''"/></td>
+                                        <td><t t-esc="line.date_from or ''"/></td>
+                                        <td><t t-esc="line.date_to or ''"/></td>
+                                        <td><t t-esc="line.operator_id.name if line.operator_id else ''"/></td>
+                                        <td class="text-end"><t t-esc="line.qty"/></td>
+                                        <td class="text-end">
+                                            <t t-esc="line.unit_price"
+                                               t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                        </td>
+                                        <td class="text-end">
+                                            <t t-esc="line.subtotal"
+                                               t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="9" class="text-end"><strong>Total:</strong></td>
+                                    <td class="text-end">
+                                        <strong>
+                                            <t t-esc="o.amount_total"
+                                               t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                        </strong>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+
+                        <t t-if="o.notes">
+                            <div class="mt-3">
+                                <strong>Terms &amp; Conditions:</strong>
+                                <p t-esc="o.notes"/>
+                            </div>
+                        </t>
+
+                        <div class="row mt-5">
+                            <div class="col-6">
+                                <p>For and on behalf of the Company:</p>
+                                <p>Signature: _______________________</p>
+                                <p>Name: _______________________</p>
+                                <p>Date: _______________________</p>
+                            </div>
+                            <div class="col-6">
+                                <p>For and on behalf of the Customer:</p>
+                                <p>Signature: _______________________</p>
+                                <p>Name: _______________________</p>
+                                <p>Date: _______________________</p>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="seq_rental_equipment" model="ir.sequence">
+            <field name="name">Equipment Code</field>
+            <field name="code">rental.equipment</field>
+            <field name="prefix">EQ/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_rental_quotation" model="ir.sequence">
+            <field name="name">Rental Quotation</field>
+            <field name="code">rental.quotation</field>
+            <field name="prefix">RQ/%(year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_rental_contract" model="ir.sequence">
+            <field name="name">Rental Contract</field>
+            <field name="code">rental.contract</field>
+            <field name="prefix">RC/%(year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_rental_dispatch" model="ir.sequence">
+            <field name="name">Rental Dispatch</field>
+            <field name="code">rental.dispatch</field>
+            <field name="prefix">RD/%(year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_rental_offhire" model="ir.sequence">
+            <field name="name">Rental Off-Hire</field>
+            <field name="code">rental.offhire</field>
+            <field name="prefix">ROH/%(year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_rental_operator" model="ir.sequence">
+            <field name="name">Rental Operator</field>
+            <field name="code">rental.operator</field>
+            <field name="prefix">ROP/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_rental_inspection" model="ir.sequence">
+            <field name="name">Rental Inspection</field>
+            <field name="code">rental.inspection</field>
+            <field name="prefix">RI/%(year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_rental_workshop_job" model="ir.sequence">
+            <field name="name">Workshop Job</field>
+            <field name="code">rental.workshop.job</field>
+            <field name="prefix">RW/%(year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_rental_breakdown" model="ir.sequence">
+            <field name="name">Rental Breakdown</field>
+            <field name="code">rental.breakdown</field>
+            <field name="prefix">RB/%(year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_rental_maintenance" model="ir.sequence">
+            <field name="name">Preventive Maintenance</field>
+            <field name="code">rental.maintenance</field>
+            <field name="prefix">RM/%(year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

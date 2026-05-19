@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ===================== DISPATCH ===================== -->
+    <record id="view_rental_dispatch_list" model="ir.ui.view">
+        <field name="name">rental.dispatch.list</field>
+        <field name="model">rental.dispatch</field>
+        <field name="arch" type="xml">
+            <list string="Dispatch Orders"
+                  decoration-success="state == 'on_site'"
+                  decoration-info="state == 'dispatched'"
+                  decoration-muted="state == 'returned'">
+                <field name="name"/>
+                <field name="contract_id"/>
+                <field name="customer_id"/>
+                <field name="site_id"/>
+                <field name="dispatch_date"/>
+                <field name="driver_name"/>
+                <field name="vehicle_plate"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_rental_dispatch_form" model="ir.ui.view">
+        <field name="name">rental.dispatch.form</field>
+        <field name="model">rental.dispatch</field>
+        <field name="arch" type="xml">
+            <form string="Dispatch Order">
+                <header>
+                    <button name="action_dispatch" string="Dispatch" type="object"
+                            class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_confirm_on_site" string="Confirm On Site" type="object"
+                            class="btn-success" invisible="state != 'dispatched'"/>
+                    <button name="action_create_offhire" string="Create Off-Hire" type="object"
+                            invisible="state != 'on_site'"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,dispatched,on_site,returned"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="object"
+                                name="action_view_offhires" icon="fa-undo">
+                            <field name="offhire_count" widget="statinfo" string="Off-Hires"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group string="Dispatch Info">
+                            <field name="contract_id"/>
+                            <field name="customer_id"/>
+                            <field name="site_id"/>
+                            <field name="dispatch_date"/>
+                        </group>
+                        <group string="Transport">
+                            <field name="driver_name"/>
+                            <field name="vehicle_plate"/>
+                        </group>
+                    </group>
+                    <group string="Equipment Dispatched">
+                        <field name="equipment_ids" widget="many2many_tags"/>
+                    </group>
+                    <group string="Notes">
+                        <field name="notes" nolabel="1" placeholder="Dispatch notes..."/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_rental_dispatch" model="ir.actions.act_window">
+        <field name="name">Dispatch Orders</field>
+        <field name="res_model">rental.dispatch</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- ===================== OFF-HIRE ===================== -->
+    <record id="view_rental_offhire_list" model="ir.ui.view">
+        <field name="name">rental.offhire.list</field>
+        <field name="model">rental.offhire</field>
+        <field name="arch" type="xml">
+            <list string="Off-Hire Returns"
+                  decoration-success="state == 'confirmed'"
+                  decoration-warning="condition == 'minor_damage'"
+                  decoration-danger="condition == 'major_damage'">
+                <field name="name"/>
+                <field name="dispatch_id"/>
+                <field name="customer_id"/>
+                <field name="return_date"/>
+                <field name="condition"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_rental_offhire_form" model="ir.ui.view">
+        <field name="name">rental.offhire.form</field>
+        <field name="model">rental.offhire</field>
+        <field name="arch" type="xml">
+            <form string="Off-Hire Return">
+                <header>
+                    <button name="action_confirm" string="Confirm Return" type="object"
+                            class="btn-success" invisible="state != 'draft'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group string="Return Info">
+                            <field name="dispatch_id"/>
+                            <field name="contract_id"/>
+                            <field name="customer_id"/>
+                            <field name="return_date"/>
+                        </group>
+                        <group string="Condition">
+                            <field name="condition"/>
+                        </group>
+                    </group>
+                    <group string="Equipment Returned">
+                        <field name="equipment_ids" widget="many2many_tags"/>
+                    </group>
+                    <group string="Damage &amp; Missing Items">
+                        <field name="damage_notes" placeholder="Describe any damage..."/>
+                        <field name="missing_accessories" placeholder="List missing accessories..."/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_rental_offhire" model="ir.actions.act_window">
+        <field name="name">Off-Hire Returns</field>
+        <field name="res_model">rental.offhire</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Security Groups for Equipment Rental -->
+
+        <record id="group_rental_user" model="res.groups">
+            <field name="name">Equipment Rental / User</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <record id="group_rental_dispatcher" model="res.groups">
+            <field name="name">Equipment Rental / Dispatcher</field>
+            <field name="implied_ids" eval="[(4, ref('group_rental_user'))]"/>
+        </record>
+
+        <record id="group_rental_manager" model="res.groups">
+            <field name="name">Equipment Rental / Manager</field>
+            <field name="implied_ids" eval="[(4, ref('group_rental_dispatcher'))]"/>
+        </record>
+
+        <record id="group_rental_admin" model="res.groups">
+            <field name="name">Equipment Rental / Administrator</field>
+            <field name="implied_ids" eval="[(4, ref('group_rental_manager'))]"/>
+        </record>
+    </data>
+</odoo>

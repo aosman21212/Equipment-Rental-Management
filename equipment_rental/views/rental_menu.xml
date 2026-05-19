@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- =================== ROOT MENU =================== -->
+    <menuitem id="menu_equipment_rental_root"
+              name="Equipment Rental"
+              sequence="50"
+              web_icon="equipment_rental,static/description/icon.png"/>
+
+    <!-- =================== FLEET =================== -->
+    <menuitem id="menu_rental_fleet"
+              name="Fleet"
+              parent="menu_equipment_rental_root"
+              sequence="10"/>
+
+    <menuitem id="menu_rental_equipment"
+              name="Equipment"
+              parent="menu_rental_fleet"
+              action="action_rental_equipment"
+              sequence="10"/>
+
+    <menuitem id="menu_rental_equipment_category"
+              name="Categories"
+              parent="menu_rental_fleet"
+              action="action_rental_equipment_category"
+              sequence="20"/>
+
+    <menuitem id="menu_rental_site"
+              name="Sites"
+              parent="menu_rental_fleet"
+              action="action_rental_site"
+              sequence="30"/>
+
+    <menuitem id="menu_rental_meter_log"
+              name="Meter Logs"
+              parent="menu_rental_fleet"
+              action="action_rental_meter_log"
+              sequence="40"/>
+
+    <!-- =================== RENTALS =================== -->
+    <menuitem id="menu_rental_rentals"
+              name="Rentals"
+              parent="menu_equipment_rental_root"
+              sequence="20"/>
+
+    <menuitem id="menu_rental_quotation"
+              name="Quotations"
+              parent="menu_rental_rentals"
+              action="action_rental_quotation"
+              sequence="10"/>
+
+    <menuitem id="menu_rental_contract"
+              name="Contracts"
+              parent="menu_rental_rentals"
+              action="action_rental_contract"
+              sequence="20"/>
+
+    <menuitem id="menu_rental_dispatch"
+              name="Dispatch Orders"
+              parent="menu_rental_rentals"
+              action="action_rental_dispatch"
+              sequence="30"/>
+
+    <menuitem id="menu_rental_offhire"
+              name="Off-Hire Returns"
+              parent="menu_rental_rentals"
+              action="action_rental_offhire"
+              sequence="40"/>
+
+    <!-- =================== OPERATORS =================== -->
+    <menuitem id="menu_rental_operators"
+              name="Operators"
+              parent="menu_equipment_rental_root"
+              sequence="30"/>
+
+    <menuitem id="menu_rental_operator"
+              name="Operators"
+              parent="menu_rental_operators"
+              action="action_rental_operator"
+              sequence="10"/>
+
+    <menuitem id="menu_rental_operator_competency"
+              name="Competencies"
+              parent="menu_rental_operators"
+              action="action_rental_operator_competency"
+              sequence="20"/>
+
+    <!-- =================== COMPLIANCE =================== -->
+    <menuitem id="menu_rental_compliance"
+              name="Compliance"
+              parent="menu_equipment_rental_root"
+              sequence="40"/>
+
+    <menuitem id="menu_rental_inspection"
+              name="Inspections"
+              parent="menu_rental_compliance"
+              action="action_rental_inspection"
+              sequence="10"/>
+
+    <menuitem id="menu_rental_certificate"
+              name="Certificates"
+              parent="menu_rental_compliance"
+              action="action_rental_certificate"
+              sequence="20"/>
+
+    <menuitem id="menu_rental_inspection_type"
+              name="Inspection Types"
+              parent="menu_rental_compliance"
+              action="action_rental_inspection_type"
+              sequence="30"/>
+
+    <!-- =================== WORKSHOP =================== -->
+    <menuitem id="menu_rental_workshop"
+              name="Workshop"
+              parent="menu_equipment_rental_root"
+              sequence="50"/>
+
+    <menuitem id="menu_rental_workshop_job"
+              name="Workshop Jobs"
+              parent="menu_rental_workshop"
+              action="action_rental_workshop_job"
+              sequence="10"/>
+
+    <menuitem id="menu_rental_breakdown"
+              name="Breakdowns"
+              parent="menu_rental_workshop"
+              action="action_rental_breakdown"
+              sequence="20"/>
+
+    <menuitem id="menu_rental_maintenance"
+              name="Preventive Maintenance"
+              parent="menu_rental_workshop"
+              action="action_rental_maintenance"
+              sequence="30"/>
+
+    <!-- =================== EXPENSES & USAGE =================== -->
+    <menuitem id="menu_rental_expenses_usage"
+              name="Expenses &amp; Usage"
+              parent="menu_equipment_rental_root"
+              sequence="60"/>
+
+    <menuitem id="menu_rental_usage_log"
+              name="Usage Logs"
+              parent="menu_rental_expenses_usage"
+              action="action_rental_usage_log"
+              sequence="10"/>
+
+    <menuitem id="menu_rental_fuel_log"
+              name="Fuel Logs"
+              parent="menu_rental_expenses_usage"
+              action="action_rental_fuel_log"
+              sequence="20"/>
+
+    <menuitem id="menu_rental_expense"
+              name="Field Expenses"
+              parent="menu_rental_expenses_usage"
+              action="action_rental_expense"
+              sequence="30"/>
+
+    <!-- =================== ANALYSIS =================== -->
+    <menuitem id="menu_rental_analysis"
+              name="Analysis"
+              parent="menu_equipment_rental_root"
+              sequence="70"/>
+
+    <menuitem id="menu_rental_profitability"
+              name="Profitability"
+              parent="menu_rental_analysis"
+              action="action_rental_profitability"
+              sequence="10"/>
+
+    <!-- =================== CONFIGURATION =================== -->
+    <menuitem id="menu_rental_config"
+              name="Configuration"
+              parent="menu_equipment_rental_root"
+              sequence="100"
+              groups="equipment_rental.group_rental_manager"/>
+
+    <menuitem id="menu_rental_config_category"
+              name="Equipment Categories"
+              parent="menu_rental_config"
+              action="action_rental_equipment_category"
+              sequence="10"/>
+
+    <menuitem id="menu_rental_config_inspection_type"
+              name="Inspection Types"
+              parent="menu_rental_config"
+              action="action_rental_inspection_type"
+              sequence="20"/>
+
+    <menuitem id="menu_rental_config_site"
+              name="Sites"
+              parent="menu_rental_config"
+              action="action_rental_site"
+              sequence="30"/>
+</odoo>

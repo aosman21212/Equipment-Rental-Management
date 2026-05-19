@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ===================== EQUIPMENT CATEGORY ===================== -->
+    <record id="view_rental_equipment_category_list" model="ir.ui.view">
+        <field name="name">rental.equipment.category.list</field>
+        <field name="model">rental.equipment.category</field>
+        <field name="arch" type="xml">
+            <list string="Equipment Categories">
+                <field name="name"/>
+                <field name="parent_id"/>
+                <field name="code"/>
+                <field name="equipment_count"/>
+                <field name="active" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_rental_equipment_category_form" model="ir.ui.view">
+        <field name="name">rental.equipment.category.form</field>
+        <field name="model">rental.equipment.category</field>
+        <field name="arch" type="xml">
+            <form string="Equipment Category">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="parent_id"/>
+                        </group>
+                        <group>
+                            <field name="active"/>
+                            <field name="equipment_count"/>
+                        </group>
+                    </group>
+                    <field name="description" placeholder="Category description..."/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_rental_equipment_category" model="ir.actions.act_window">
+        <field name="name">Equipment Categories</field>
+        <field name="res_model">rental.equipment.category</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- ===================== EQUIPMENT ===================== -->
+    <record id="view_rental_equipment_kanban" model="ir.ui.view">
+        <field name="name">rental.equipment.kanban</field>
+        <field name="model">rental.equipment</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="status" class="o_kanban_mobile">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="category_id"/>
+                <field name="status"/>
+                <field name="make"/>
+                <field name="model_name"/>
+                <field name="site_id"/>
+                <field name="daily_rate"/>
+                <field name="currency_id"/>
+                <field name="image"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_image">
+                                <img t-if="record.image.value"
+                                     t-att-src="'/web/image/rental.equipment/' + record.id.value + '/image/64x64'"
+                                     alt="Equipment"/>
+                                <img t-else="" src="/equipment_rental/static/description/icon.png" alt="Equipment"/>
+                            </div>
+                            <div class="oe_kanban_details">
+                                <strong class="o_kanban_record_title">
+                                    <field name="name"/>
+                                </strong>
+                                <div><field name="code"/> — <field name="category_id"/></div>
+                                <div t-if="record.make.value">
+                                    <span t-esc="record.make.value"/>
+                                    <t t-if="record.model_name.value"> <span t-esc="record.model_name.value"/></t>
+                                </div>
+                                <div t-if="record.site_id.value">Site: <field name="site_id"/></div>
+                                <div>
+                                    <span class="badge rounded-pill"
+                                          t-attf-class="badge rounded-pill
+                                            #{record.status.raw_value === 'available' ? 'text-bg-success' :
+                                              record.status.raw_value === 'on_rent' ? 'text-bg-primary' :
+                                              record.status.raw_value === 'workshop' ? 'text-bg-warning' :
+                                              record.status.raw_value === 'decommissioned' ? 'text-bg-danger' :
+                                              'text-bg-secondary'}">
+                                        <field name="status"/>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_rental_equipment_list" model="ir.ui.view">
+        <field name="name">rental.equipment.list</field>
+        <field name="model">rental.equipment</field>
+        <field name="arch" type="xml">
+            <list string="Equipment Fleet" decoration-danger="status == 'decommissioned'"
+                  decoration-warning="status == 'workshop' or status == 'inspection_hold'"
+                  decoration-success="status == 'available'">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="category_id"/>
+                <field name="make"/>
+                <field name="model_name"/>
+                <field name="year"/>
+                <field name="status"/>
+                <field name="site_id"/>
+                <field name="daily_rate"/>
+                <field name="currency_id" column_invisible="True"/>
+                <field name="hour_meter"/>
+                <field name="active" column_invisible="True"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_rental_equipment_form" model="ir.ui.view">
+        <field name="name">rental.equipment.form</field>
+        <field name="model">rental.equipment</field>
+        <field name="arch" type="xml">
+            <form string="Equipment">
+                <header>
+                    <button name="action_set_available" string="Set Available"
+                            type="object" class="btn-success"
+                            invisible="status == 'available'"/>
+                    <button name="action_set_workshop" string="Send to Workshop"
+                            type="object" class="btn-warning"
+                            invisible="status == 'workshop'"/>
+                    <button name="action_set_inspection_hold" string="Inspection Hold"
+                            type="object"
+                            invisible="status == 'inspection_hold'"/>
+                    <button name="action_set_decommissioned" string="Decommission"
+                            type="object" class="btn-danger"
+                            invisible="status == 'decommissioned'"/>
+                    <field name="status" widget="statusbar"
+                           statusbar_visible="available,reserved,on_rent,workshop,decommissioned"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="object"
+                                name="action_view_quotations" icon="fa-file-text-o">
+                            <field name="quotation_count" widget="statinfo" string="Quotations"/>
+                        </button>
+                        <button class="oe_stat_button" type="object"
+                                name="action_view_contracts" icon="fa-file-contract">
+                            <field name="contract_count" widget="statinfo" string="Contracts"/>
+                        </button>
+                        <button class="oe_stat_button" type="object"
+                                name="action_view_inspections" icon="fa-clipboard-check">
+                            <field name="inspection_count" widget="statinfo" string="Inspections"/>
+                        </button>
+                        <button class="oe_stat_button" type="object"
+                                name="action_view_workshop" icon="fa-wrench">
+                            <field name="workshop_count" widget="statinfo" string="Workshop"/>
+                        </button>
+                    </div>
+                    <field name="image" widget="image" class="oe_avatar"/>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1><field name="name" placeholder="Equipment Name"/></h1>
+                        <div class="o_row">
+                            <field name="code" readonly="1"/>
+                        </div>
+                    </div>
+                    <group>
+                        <group string="Equipment Details">
+                            <field name="category_id"/>
+                            <field name="make"/>
+                            <field name="model_name"/>
+                            <field name="year"/>
+                            <field name="serial_number"/>
+                            <field name="plate_number"/>
+                        </group>
+                        <group string="Current Status">
+                            <field name="site_id"/>
+                            <field name="hour_meter"/>
+                            <field name="odometer"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <group string="Rental Rates">
+                        <group>
+                            <field name="currency_id"/>
+                            <field name="hourly_rate"/>
+                            <field name="daily_rate"/>
+                        </group>
+                        <group>
+                            <field name="weekly_rate"/>
+                            <field name="monthly_rate"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Components" name="components">
+                            <field name="component_ids">
+                                <list editable="bottom">
+                                    <field name="name"/>
+                                    <field name="serial_number"/>
+                                    <field name="condition"/>
+                                    <field name="notes"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Meter Logs" name="meter_logs">
+                            <field name="meter_log_ids">
+                                <list editable="bottom">
+                                    <field name="date"/>
+                                    <field name="hour_meter"/>
+                                    <field name="odometer"/>
+                                    <field name="logged_by"/>
+                                    <field name="notes"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notes" name="notes">
+                            <field name="notes" placeholder="Internal notes..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_rental_equipment" model="ir.actions.act_window">
+        <field name="name">Equipment Fleet</field>
+        <field name="res_model">rental.equipment</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="context">{'search_default_active': 1}</field>
+    </record>
+
+    <!-- ===================== METER LOG standalone ===================== -->
+    <record id="view_rental_meter_log_list" model="ir.ui.view">
+        <field name="name">rental.equipment.meter.log.list</field>
+        <field name="model">rental.equipment.meter.log</field>
+        <field name="arch" type="xml">
+            <list string="Meter Logs">
+                <field name="date"/>
+                <field name="equipment_id"/>
+                <field name="hour_meter"/>
+                <field name="odometer"/>
+                <field name="logged_by"/>
+                <field name="notes"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_rental_meter_log" model="ir.actions.act_window">
+        <field name="name">Meter Logs</field>
+        <field name="res_model">rental.equipment.meter.log</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

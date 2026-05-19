@@ -1,0 +1,99 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_rental_equipment_category_all,rental.equipment.category all users,model_rental_equipment_category,base.group_user,1,0,0,0
+access_rental_equipment_category_admin,rental.equipment.category admin,model_rental_equipment_category,equipment_rental.group_rental_admin,1,1,1,1
+access_rental_equipment_category_manager,rental.equipment.category manager,model_rental_equipment_category,equipment_rental.group_rental_manager,1,1,1,0
+access_rental_equipment_category_user,rental.equipment.category user,model_rental_equipment_category,equipment_rental.group_rental_user,1,0,0,0
+access_rental_equipment_all,rental.equipment all users,model_rental_equipment,base.group_user,1,0,0,0
+access_rental_equipment_admin,rental.equipment admin,model_rental_equipment,equipment_rental.group_rental_admin,1,1,1,1
+access_rental_equipment_manager,rental.equipment manager,model_rental_equipment,equipment_rental.group_rental_manager,1,1,1,0
+access_rental_equipment_user,rental.equipment user,model_rental_equipment,equipment_rental.group_rental_user,1,1,0,0
+access_rental_equipment_component_all,rental.equipment.component all users,model_rental_equipment_component,base.group_user,1,0,0,0
+access_rental_equipment_component_admin,rental.equipment.component admin,model_rental_equipment_component,equipment_rental.group_rental_admin,1,1,1,1
+access_rental_equipment_component_manager,rental.equipment.component manager,model_rental_equipment_component,equipment_rental.group_rental_manager,1,1,1,0
+access_rental_equipment_component_user,rental.equipment.component user,model_rental_equipment_component,equipment_rental.group_rental_user,1,1,0,0
+access_rental_equipment_meter_log_all,rental.equipment.meter.log all users,model_rental_equipment_meter_log,base.group_user,1,0,0,0
+access_rental_equipment_meter_log_admin,rental.equipment.meter.log admin,model_rental_equipment_meter_log,equipment_rental.group_rental_admin,1,1,1,1
+access_rental_equipment_meter_log_manager,rental.equipment.meter.log manager,model_rental_equipment_meter_log,equipment_rental.group_rental_manager,1,1,1,0
+access_rental_equipment_meter_log_user,rental.equipment.meter.log user,model_rental_equipment_meter_log,equipment_rental.group_rental_user,1,1,1,0
+access_rental_site_all,rental.site all users,model_rental_site,base.group_user,1,0,0,0
+access_rental_site_admin,rental.site admin,model_rental_site,equipment_rental.group_rental_admin,1,1,1,1
+access_rental_site_manager,rental.site manager,model_rental_site,equipment_rental.group_rental_manager,1,1,1,0
+access_rental_site_user,rental.site user,model_rental_site,equipment_rental.group_rental_user,1,0,0,0
+access_rental_quotation_all,rental.quotation all users,model_rental_quotation,base.group_user,1,0,0,0
+access_rental_quotation_admin,rental.quotation admin,model_rental_quotation,equipment_rental.group_rental_admin,1,1,1,1
+access_rental_quotation_manager,rental.quotation manager,model_rental_quotation,equipment_rental.group_rental_manager,1,1,1,0
+access_rental_quotation_user,rental.quotation user,model_rental_quotation,equipment_rental.group_rental_user,1,1,1,0
+access_rental_quotation_line_all,rental.quotation.line all users,model_rental_quotation_line,base.group_user,1,0,0,0
+access_rental_quotation_line_admin,rental.quotation.line admin,model_rental_quotation_line,equipment_rental.group_rental_admin,1,1,1,1
+access_rental_quotation_line_manager,rental.quotation.line manager,model_rental_quotation_line,equipment_rental.group_rental_manager,1,1,1,0
+access_rental_quotation_line_user,rental.quotation.line user,model_rental_quotation_line,equipment_rental.group_rental_user,1,1,1,0
+access_rental_contract_all,rental.contract all users,model_rental_contract,base.group_user,1,0,0,0
+access_rental_contract_admin,rental.contract admin,model_rental_contract,equipment_rental.group_rental_admin,1,1,1,1
+access_rental_contract_manager,rental.contract manager,model_rental_contract,equipment_rental.group_rental_manager,1,1,1,0
+access_rental_contract_user,rental.contract user,model_rental_contract,equipment_rental.group_rental_user,1,1,0,0
+access_rental_contract_line_all,rental.contract.line all users,model_rental_contract_line,base.group_user,1,0,0,0
+access_rental_contract_line_admin,rental.contract.line admin,model_rental_contract_line,equipment_rental.group_rental_admin,1,1,1,1
+access_rental_contract_line_manager,rental.contract.line manager,model_rental_contract_line,equipment_rental.group_rental_manager,1,1,1,0
+access_rental_contract_line_user,rental.contract.line user,model_rental_contract_line,equipment_rental.group_rental_user,1,1,0,0
+access_rental_dispatch_all,rental.dispatch all users,model_rental_dispatch,base.group_user,1,0,0,0
+access_rental_dispatch_admin,rental.dispatch admin,model_rental_dispatch,equipment_rental.group_rental_admin,1,1,1,1
+access_rental_dispatch_manager,rental.dispatch manager,model_rental_dispatch,equipment_rental.group_rental_manager,1,1,1,0
+access_rental_dispatch_dispatcher,rental.dispatch dispatcher,model_rental_dispatch,equipment_rental.group_rental_dispatcher,1,1,1,0
+access_rental_dispatch_user,rental.dispatch user,model_rental_dispatch,equipment_rental.group_rental_user,1,0,0,0
+access_rental_offhire_all,rental.offhire all users,model_rental_offhire,base.group_user,1,0,0,0
+access_rental_offhire_admin,rental.offhire admin,model_rental_offhire,equipment_rental.group_rental_admin,1,1,1,1
+access_rental_offhire_manager,rental.offhire manager,model_rental_offhire,equipment_rental.group_rental_manager,1,1,1,0
+access_rental_offhire_dispatcher,rental.offhire dispatcher,model_rental_offhire,equipment_rental.group_rental_dispatcher,1,1,1,0
+access_rental_offhire_user,rental.offhire user,model_rental_offhire,equipment_rental.group_rental_user,1,0,0,0
+access_rental_operator_all,rental.operator all users,model_rental_operator,base.group_user,1,0,0,0
+access_rental_operator_admin,rental.operator admin,model_rental_operator,equipment_rental.group_rental_admin,1,1,1,1
+access_rental_operator_manager,rental.operator manager,model_rental_operator,equipment_rental.group_rental_manager,1,1,1,0
+access_rental_operator_user,rental.operator user,model_rental_operator,equipment_rental.group_rental_user,1,0,0,0
+access_rental_operator_competency_all,rental.operator.competency all users,model_rental_operator_competency,base.group_user,1,0,0,0
+access_rental_operator_competency_admin,rental.operator.competency admin,model_rental_operator_competency,equipment_rental.group_rental_admin,1,1,1,1
+access_rental_operator_competency_manager,rental.operator.competency manager,model_rental_operator_competency,equipment_rental.group_rental_manager,1,1,1,0
+access_rental_operator_competency_user,rental.operator.competency user,model_rental_operator_competency,equipment_rental.group_rental_user,1,0,0,0
+access_rental_inspection_type_all,rental.inspection.type all users,model_rental_inspection_type,base.group_user,1,0,0,0
+access_rental_inspection_type_admin,rental.inspection.type admin,model_rental_inspection_type,equipment_rental.group_rental_admin,1,1,1,1
+access_rental_inspection_type_manager,rental.inspection.type manager,model_rental_inspection_type,equipment_rental.group_rental_manager,1,1,1,0
+access_rental_inspection_type_user,rental.inspection.type user,model_rental_inspection_type,equipment_rental.group_rental_user,1,0,0,0
+access_rental_inspection_all,rental.inspection all users,model_rental_inspection,base.group_user,1,0,0,0
+access_rental_inspection_admin,rental.inspection admin,model_rental_inspection,equipment_rental.group_rental_admin,1,1,1,1
+access_rental_inspection_manager,rental.inspection manager,model_rental_inspection,equipment_rental.group_rental_manager,1,1,1,0
+access_rental_inspection_user,rental.inspection user,model_rental_inspection,equipment_rental.group_rental_user,1,1,1,0
+access_rental_certificate_all,rental.certificate all users,model_rental_certificate,base.group_user,1,0,0,0
+access_rental_certificate_admin,rental.certificate admin,model_rental_certificate,equipment_rental.group_rental_admin,1,1,1,1
+access_rental_certificate_manager,rental.certificate manager,model_rental_certificate,equipment_rental.group_rental_manager,1,1,1,0
+access_rental_certificate_user,rental.certificate user,model_rental_certificate,equipment_rental.group_rental_user,1,1,0,0
+access_rental_workshop_job_all,rental.workshop.job all users,model_rental_workshop_job,base.group_user,1,0,0,0
+access_rental_workshop_job_admin,rental.workshop.job admin,model_rental_workshop_job,equipment_rental.group_rental_admin,1,1,1,1
+access_rental_workshop_job_manager,rental.workshop.job manager,model_rental_workshop_job,equipment_rental.group_rental_manager,1,1,1,0
+access_rental_workshop_job_user,rental.workshop.job user,model_rental_workshop_job,equipment_rental.group_rental_user,1,1,1,0
+access_rental_workshop_parts_all,rental.workshop.parts all users,model_rental_workshop_parts,base.group_user,1,0,0,0
+access_rental_workshop_parts_admin,rental.workshop.parts admin,model_rental_workshop_parts,equipment_rental.group_rental_admin,1,1,1,1
+access_rental_workshop_parts_manager,rental.workshop.parts manager,model_rental_workshop_parts,equipment_rental.group_rental_manager,1,1,1,0
+access_rental_workshop_parts_user,rental.workshop.parts user,model_rental_workshop_parts,equipment_rental.group_rental_user,1,1,1,0
+access_rental_breakdown_all,rental.breakdown all users,model_rental_breakdown,base.group_user,1,0,0,0
+access_rental_breakdown_admin,rental.breakdown admin,model_rental_breakdown,equipment_rental.group_rental_admin,1,1,1,1
+access_rental_breakdown_manager,rental.breakdown manager,model_rental_breakdown,equipment_rental.group_rental_manager,1,1,1,0
+access_rental_breakdown_user,rental.breakdown user,model_rental_breakdown,equipment_rental.group_rental_user,1,1,1,0
+access_rental_maintenance_all,rental.maintenance all users,model_rental_maintenance,base.group_user,1,0,0,0
+access_rental_maintenance_admin,rental.maintenance admin,model_rental_maintenance,equipment_rental.group_rental_admin,1,1,1,1
+access_rental_maintenance_manager,rental.maintenance manager,model_rental_maintenance,equipment_rental.group_rental_manager,1,1,1,0
+access_rental_maintenance_user,rental.maintenance user,model_rental_maintenance,equipment_rental.group_rental_user,1,1,0,0
+access_rental_usage_log_all,rental.usage.log all users,model_rental_usage_log,base.group_user,1,0,0,0
+access_rental_usage_log_admin,rental.usage.log admin,model_rental_usage_log,equipment_rental.group_rental_admin,1,1,1,1
+access_rental_usage_log_manager,rental.usage.log manager,model_rental_usage_log,equipment_rental.group_rental_manager,1,1,1,0
+access_rental_usage_log_user,rental.usage.log user,model_rental_usage_log,equipment_rental.group_rental_user,1,1,1,0
+access_rental_fuel_log_all,rental.fuel.log all users,model_rental_fuel_log,base.group_user,1,0,0,0
+access_rental_fuel_log_admin,rental.fuel.log admin,model_rental_fuel_log,equipment_rental.group_rental_admin,1,1,1,1
+access_rental_fuel_log_manager,rental.fuel.log manager,model_rental_fuel_log,equipment_rental.group_rental_manager,1,1,1,0
+access_rental_fuel_log_user,rental.fuel.log user,model_rental_fuel_log,equipment_rental.group_rental_user,1,1,1,0
+access_rental_expense_all,rental.expense all users,model_rental_expense,base.group_user,1,0,0,0
+access_rental_expense_admin,rental.expense admin,model_rental_expense,equipment_rental.group_rental_admin,1,1,1,1
+access_rental_expense_manager,rental.expense manager,model_rental_expense,equipment_rental.group_rental_manager,1,1,1,0
+access_rental_expense_user,rental.expense user,model_rental_expense,equipment_rental.group_rental_user,1,1,1,0
+access_rental_profitability_all,rental.profitability all users,model_rental_profitability,base.group_user,1,0,0,0
+access_rental_profitability_admin,rental.profitability admin,model_rental_profitability,equipment_rental.group_rental_admin,1,1,1,1
+access_rental_profitability_manager,rental.profitability manager,model_rental_profitability,equipment_rental.group_rental_manager,1,1,1,0
+access_rental_profitability_user,rental.profitability user,model_rental_profitability,equipment_rental.group_rental_user,1,0,0,0

@@ -1,0 +1,492 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- ===== EQUIPMENT CATEGORIES ===== -->
+        <record id="cat_cranes" model="rental.equipment.category">
+            <field name="name">Cranes</field>
+            <field name="code">CRN</field>
+            <field name="description">All types of lifting cranes</field>
+        </record>
+
+        <record id="cat_mobile_cranes" model="rental.equipment.category">
+            <field name="name">Mobile Cranes</field>
+            <field name="code">MCR</field>
+            <field name="parent_id" ref="cat_cranes"/>
+        </record>
+
+        <record id="cat_forklifts" model="rental.equipment.category">
+            <field name="name">Forklifts</field>
+            <field name="code">FLT</field>
+            <field name="description">Counter-balance and reach forklifts</field>
+        </record>
+
+        <record id="cat_generators" model="rental.equipment.category">
+            <field name="name">Generators</field>
+            <field name="code">GEN</field>
+            <field name="description">Power generation equipment</field>
+        </record>
+
+        <!-- ===== SITES ===== -->
+        <record id="site_alpha" model="rental.site">
+            <field name="name">Alpha Industrial Park</field>
+            <field name="code">AIP</field>
+            <field name="address">Plot 15, Alpha Industrial Park, Dubai Investment Park</field>
+        </record>
+
+        <record id="site_beta" model="rental.site">
+            <field name="name">Beta Construction Site</field>
+            <field name="code">BCS</field>
+            <field name="address">Zone 3, Beta Construction Site, Sharjah</field>
+        </record>
+
+        <!-- ===== INSPECTION TYPES ===== -->
+        <record id="insp_type_annual" model="rental.inspection.type">
+            <field name="name">Annual Safety Inspection</field>
+            <field name="category">third_party</field>
+            <field name="cycle_days">365</field>
+        </record>
+
+        <record id="insp_type_quarterly" model="rental.inspection.type">
+            <field name="name">Quarterly Maintenance Check</field>
+            <field name="category">internal</field>
+            <field name="cycle_days">90</field>
+        </record>
+
+        <!-- ===== EQUIPMENT ===== -->
+        <record id="eq_crane_55t" model="rental.equipment">
+            <field name="name">55T All-Terrain Crane</field>
+            <field name="code">EQ/00001</field>
+            <field name="category_id" ref="cat_mobile_cranes"/>
+            <field name="make">Liebherr</field>
+            <field name="model_name">LTM 1055-3.2</field>
+            <field name="year">2019</field>
+            <field name="serial_number">LTM10552019001</field>
+            <field name="plate_number">UAE-CR-001</field>
+            <field name="status">available</field>
+            <field name="hour_meter">1250.5</field>
+            <field name="daily_rate">1500</field>
+            <field name="weekly_rate">9000</field>
+            <field name="monthly_rate">32000</field>
+            <field name="hourly_rate">200</field>
+            <field name="currency_id" ref="base.AED"/>
+        </record>
+
+        <record id="eq_crane_100t" model="rental.equipment">
+            <field name="name">100T Crawler Crane</field>
+            <field name="code">EQ/00002</field>
+            <field name="category_id" ref="cat_cranes"/>
+            <field name="make">Tadano</field>
+            <field name="model_name">GR-1000XL</field>
+            <field name="year">2020</field>
+            <field name="serial_number">TAD2020100001</field>
+            <field name="plate_number">UAE-CR-002</field>
+            <field name="status">on_rent</field>
+            <field name="site_id" ref="site_alpha"/>
+            <field name="hour_meter">850.0</field>
+            <field name="daily_rate">2500</field>
+            <field name="weekly_rate">15000</field>
+            <field name="monthly_rate">55000</field>
+            <field name="hourly_rate">350</field>
+            <field name="currency_id" ref="base.AED"/>
+        </record>
+
+        <record id="eq_forklift_3t" model="rental.equipment">
+            <field name="name">3T Counterbalance Forklift</field>
+            <field name="code">EQ/00003</field>
+            <field name="category_id" ref="cat_forklifts"/>
+            <field name="make">Toyota</field>
+            <field name="model_name">8FG30</field>
+            <field name="year">2021</field>
+            <field name="serial_number">TYT8FG302021001</field>
+            <field name="plate_number">UAE-FL-001</field>
+            <field name="status">available</field>
+            <field name="hour_meter">320.0</field>
+            <field name="daily_rate">400</field>
+            <field name="weekly_rate">2400</field>
+            <field name="monthly_rate">8500</field>
+            <field name="hourly_rate">55</field>
+            <field name="currency_id" ref="base.AED"/>
+        </record>
+
+        <record id="eq_forklift_7t" model="rental.equipment">
+            <field name="name">7T Heavy Duty Forklift</field>
+            <field name="code">EQ/00004</field>
+            <field name="category_id" ref="cat_forklifts"/>
+            <field name="make">Hyster</field>
+            <field name="model_name">H7.0FT</field>
+            <field name="year">2020</field>
+            <field name="serial_number">HYS7FT2020001</field>
+            <field name="plate_number">UAE-FL-002</field>
+            <field name="status">workshop</field>
+            <field name="hour_meter">1100.0</field>
+            <field name="daily_rate">650</field>
+            <field name="weekly_rate">3900</field>
+            <field name="monthly_rate">14000</field>
+            <field name="hourly_rate">90</field>
+            <field name="currency_id" ref="base.AED"/>
+        </record>
+
+        <record id="eq_generator_200kva" model="rental.equipment">
+            <field name="name">200 KVA Diesel Generator</field>
+            <field name="code">EQ/00005</field>
+            <field name="category_id" ref="cat_generators"/>
+            <field name="make">Cummins</field>
+            <field name="model_name">C200D5</field>
+            <field name="year">2022</field>
+            <field name="serial_number">CMN200D52022001</field>
+            <field name="plate_number">UAE-GN-001</field>
+            <field name="status">on_rent</field>
+            <field name="site_id" ref="site_beta"/>
+            <field name="hour_meter">450.5</field>
+            <field name="daily_rate">350</field>
+            <field name="weekly_rate">2100</field>
+            <field name="monthly_rate">7500</field>
+            <field name="hourly_rate">50</field>
+            <field name="currency_id" ref="base.AED"/>
+        </record>
+
+        <!-- ===== OPERATORS ===== -->
+        <record id="op_ahmed" model="rental.operator">
+            <field name="name">Ahmed Al Mansouri</field>
+            <field name="code">ROP/0001</field>
+            <field name="role">operator</field>
+            <field name="phone">+971501234567</field>
+            <field name="email">ahmed.almansouri@example.com</field>
+            <field name="license_number">UAE-CRANE-20190045</field>
+            <field name="license_expiry">2027-06-30</field>
+        </record>
+
+        <record id="op_kumar" model="rental.operator">
+            <field name="name">Suresh Kumar</field>
+            <field name="code">ROP/0002</field>
+            <field name="role">operator</field>
+            <field name="phone">+971509876543</field>
+            <field name="email">suresh.kumar@example.com</field>
+            <field name="license_number">UAE-FORK-20210112</field>
+            <field name="license_expiry">2026-03-31</field>
+        </record>
+
+        <record id="op_hassan" model="rental.operator">
+            <field name="name">Hassan Ibrahim</field>
+            <field name="code">ROP/0003</field>
+            <field name="role">rigger</field>
+            <field name="phone">+971555543210</field>
+            <field name="email">hassan.ibrahim@example.com</field>
+            <field name="license_number">UAE-RIG-20220078</field>
+            <field name="license_expiry">2025-12-31</field>
+        </record>
+
+        <!-- Operator Competencies -->
+        <record id="comp_ahmed_crane" model="rental.operator.competency">
+            <field name="operator_id" ref="op_ahmed"/>
+            <field name="name">Mobile Crane Operation</field>
+            <field name="certificate_number">CERT-MCR-2019-045</field>
+            <field name="issuing_body">Emirates Authority for Standards</field>
+            <field name="issue_date">2019-06-01</field>
+            <field name="expiry_date">2027-06-30</field>
+        </record>
+
+        <record id="comp_kumar_forklift" model="rental.operator.competency">
+            <field name="operator_id" ref="op_kumar"/>
+            <field name="name">Forklift Operation (Up to 10T)</field>
+            <field name="certificate_number">CERT-FLT-2021-112</field>
+            <field name="issuing_body">Ministry of Human Resources UAE</field>
+            <field name="issue_date">2021-03-15</field>
+            <field name="expiry_date">2026-03-31</field>
+        </record>
+
+        <record id="comp_hassan_rigging" model="rental.operator.competency">
+            <field name="operator_id" ref="op_hassan"/>
+            <field name="name">Rigging and Slinging</field>
+            <field name="certificate_number">CERT-RIG-2022-078</field>
+            <field name="issuing_body">Abu Dhabi HAAD</field>
+            <field name="issue_date">2022-01-10</field>
+            <field name="expiry_date">2025-12-31</field>
+        </record>
+
+        <!-- ===== QUOTATIONS ===== -->
+        <record id="quot_001" model="rental.quotation">
+            <field name="name">RQ/2026/00001</field>
+            <field name="customer_id" ref="base.res_partner_1"/>
+            <field name="date_quotation">2026-01-10</field>
+            <field name="date_valid">2026-02-10</field>
+            <field name="site_id" ref="site_alpha"/>
+            <field name="rental_basis">monthly</field>
+            <field name="state">approved</field>
+            <field name="currency_id" ref="base.AED"/>
+        </record>
+
+        <record id="quot_001_line1" model="rental.quotation.line">
+            <field name="quotation_id" ref="quot_001"/>
+            <field name="equipment_id" ref="eq_crane_100t"/>
+            <field name="description">100T Crawler Crane - Monthly rental</field>
+            <field name="rental_basis">monthly</field>
+            <field name="qty">3</field>
+            <field name="unit_price">55000</field>
+        </record>
+
+        <record id="quot_001_line2" model="rental.quotation.line">
+            <field name="quotation_id" ref="quot_001"/>
+            <field name="equipment_id" ref="eq_forklift_3t"/>
+            <field name="description">3T Forklift - Monthly support</field>
+            <field name="rental_basis">monthly</field>
+            <field name="qty">2</field>
+            <field name="unit_price">8500</field>
+            <field name="operator_required">True</field>
+            <field name="operator_id" ref="op_kumar"/>
+        </record>
+
+        <record id="quot_002" model="rental.quotation">
+            <field name="name">RQ/2026/00002</field>
+            <field name="customer_id" ref="base.res_partner_2"/>
+            <field name="date_quotation">2026-02-01</field>
+            <field name="date_valid">2026-03-01</field>
+            <field name="site_id" ref="site_beta"/>
+            <field name="rental_basis">daily</field>
+            <field name="state">draft</field>
+            <field name="currency_id" ref="base.AED"/>
+        </record>
+
+        <record id="quot_002_line1" model="rental.quotation.line">
+            <field name="quotation_id" ref="quot_002"/>
+            <field name="equipment_id" ref="eq_generator_200kva"/>
+            <field name="description">200KVA Generator - Site power</field>
+            <field name="rental_basis">daily</field>
+            <field name="qty">30</field>
+            <field name="unit_price">350</field>
+        </record>
+
+        <!-- ===== CONTRACTS ===== -->
+        <record id="contract_001" model="rental.contract">
+            <field name="name">RC/2026/00001</field>
+            <field name="quotation_id" ref="quot_001"/>
+            <field name="customer_id" ref="base.res_partner_1"/>
+            <field name="site_id" ref="site_alpha"/>
+            <field name="date_start">2026-01-15</field>
+            <field name="date_end">2026-04-15</field>
+            <field name="state">active</field>
+            <field name="currency_id" ref="base.AED"/>
+        </record>
+
+        <record id="contract_001_line1" model="rental.contract.line">
+            <field name="contract_id" ref="contract_001"/>
+            <field name="equipment_id" ref="eq_crane_100t"/>
+            <field name="description">100T Crawler Crane</field>
+            <field name="rental_basis">monthly</field>
+            <field name="qty">3</field>
+            <field name="unit_price">55000</field>
+            <field name="operator_id" ref="op_ahmed"/>
+        </record>
+
+        <record id="contract_001_line2" model="rental.contract.line">
+            <field name="contract_id" ref="contract_001"/>
+            <field name="equipment_id" ref="eq_forklift_3t"/>
+            <field name="description">3T Forklift</field>
+            <field name="rental_basis">monthly</field>
+            <field name="qty">2</field>
+            <field name="unit_price">8500</field>
+            <field name="operator_id" ref="op_kumar"/>
+        </record>
+
+        <record id="contract_002" model="rental.contract">
+            <field name="name">RC/2025/00099</field>
+            <field name="customer_id" ref="base.res_partner_3"/>
+            <field name="site_id" ref="site_beta"/>
+            <field name="date_start">2025-09-01</field>
+            <field name="date_end">2025-12-31</field>
+            <field name="state">completed</field>
+            <field name="currency_id" ref="base.AED"/>
+            <field name="notes">Completed project - all equipment returned in good condition</field>
+        </record>
+
+        <record id="contract_002_line1" model="rental.contract.line">
+            <field name="contract_id" ref="contract_002"/>
+            <field name="equipment_id" ref="eq_generator_200kva"/>
+            <field name="description">200KVA Generator</field>
+            <field name="rental_basis">monthly</field>
+            <field name="qty">4</field>
+            <field name="unit_price">7500</field>
+        </record>
+
+        <!-- ===== DISPATCH ===== -->
+        <record id="dispatch_001" model="rental.dispatch">
+            <field name="name">RD/2026/00001</field>
+            <field name="contract_id" ref="contract_001"/>
+            <field name="dispatch_date">2026-01-15</field>
+            <field name="equipment_ids" eval="[(6, 0, [ref('eq_crane_100t'), ref('eq_forklift_3t')])]"/>
+            <field name="driver_name">Mohammed Al Rashid</field>
+            <field name="vehicle_plate">UAE-TRK-5512</field>
+            <field name="state">on_site</field>
+        </record>
+
+        <!-- ===== INSPECTIONS ===== -->
+        <record id="insp_crane_annual" model="rental.inspection">
+            <field name="name">RI/2026/00001</field>
+            <field name="equipment_id" ref="eq_crane_55t"/>
+            <field name="inspection_type_id" ref="insp_type_annual"/>
+            <field name="scheduled_date">2026-02-15</field>
+            <field name="inspector_name">TUV Rheinland UAE</field>
+            <field name="state">scheduled</field>
+        </record>
+
+        <record id="insp_crane_100t_check" model="rental.inspection">
+            <field name="name">RI/2025/00045</field>
+            <field name="equipment_id" ref="eq_crane_100t"/>
+            <field name="inspection_type_id" ref="insp_type_quarterly"/>
+            <field name="scheduled_date">2025-11-01</field>
+            <field name="completed_date">2025-11-03</field>
+            <field name="inspector_name">Internal QC Team</field>
+            <field name="result">pass</field>
+            <field name="state">completed</field>
+            <field name="findings">All lifting gear in good condition. Minor wear on load line noted.</field>
+        </record>
+
+        <!-- ===== CERTIFICATES ===== -->
+        <record id="cert_crane_55t" model="rental.certificate">
+            <field name="name">Crane Lifting Certificate - 55T AT Crane</field>
+            <field name="equipment_id" ref="eq_crane_55t"/>
+            <field name="inspection_id" ref="insp_crane_annual"/>
+            <field name="certificate_type">Lifting Equipment Certificate</field>
+            <field name="issue_date">2025-02-15</field>
+            <field name="expiry_date">2026-02-15</field>
+            <field name="issuing_authority">TUV Rheinland UAE</field>
+        </record>
+
+        <record id="cert_crane_100t" model="rental.certificate">
+            <field name="name">Crane Load Test Certificate - 100T</field>
+            <field name="equipment_id" ref="eq_crane_100t"/>
+            <field name="inspection_id" ref="insp_crane_100t_check"/>
+            <field name="certificate_type">Load Test Certificate</field>
+            <field name="issue_date">2025-11-03</field>
+            <field name="expiry_date">2026-11-03</field>
+            <field name="issuing_authority">Bureau Veritas UAE</field>
+        </record>
+
+        <!-- ===== WORKSHOP JOB ===== -->
+        <record id="workshop_job_001" model="rental.workshop.job">
+            <field name="name">RW/2026/00001</field>
+            <field name="equipment_id" ref="eq_forklift_7t"/>
+            <field name="job_type">corrective</field>
+            <field name="description">Replace hydraulic pump and inspect mast assembly. Forklift reported slow lift speed and oil leak.</field>
+            <field name="assigned_to">Workshop Team A</field>
+            <field name="start_date">2026-01-20</field>
+            <field name="repair_type">internal</field>
+            <field name="cost">2500</field>
+            <field name="state">in_progress</field>
+            <field name="currency_id" ref="base.AED"/>
+        </record>
+
+        <!-- ===== BREAKDOWN ===== -->
+        <record id="breakdown_001" model="rental.breakdown">
+            <field name="name">RB/2026/00001</field>
+            <field name="equipment_id" ref="eq_forklift_7t"/>
+            <field name="reported_date">2026-01-19</field>
+            <field name="reported_by">Site Supervisor - Beta Site</field>
+            <field name="description">Forklift hydraulic system failure. Mast not lifting to full height. Oil leak detected near pump housing.</field>
+            <field name="severity">high</field>
+            <field name="state">in_progress</field>
+            <field name="workshop_job_id" ref="workshop_job_001"/>
+        </record>
+
+        <!-- ===== PREVENTIVE MAINTENANCE ===== -->
+        <record id="pm_crane_55t_oil" model="rental.maintenance">
+            <field name="name">RM/2026/00001</field>
+            <field name="equipment_id" ref="eq_crane_55t"/>
+            <field name="maintenance_type">Engine Oil Change &amp; Filter</field>
+            <field name="cycle_hours">500</field>
+            <field name="last_done_date">2025-10-01</field>
+            <field name="last_done_hours">1000</field>
+        </record>
+
+        <record id="pm_generator_service" model="rental.maintenance">
+            <field name="name">RM/2026/00002</field>
+            <field name="equipment_id" ref="eq_generator_200kva"/>
+            <field name="maintenance_type">Generator Full Service</field>
+            <field name="cycle_hours">250</field>
+            <field name="last_done_date">2025-12-01</field>
+            <field name="last_done_hours">200</field>
+        </record>
+
+        <!-- ===== USAGE LOGS ===== -->
+        <record id="usage_log_001" model="rental.usage.log">
+            <field name="equipment_id" ref="eq_crane_100t"/>
+            <field name="contract_id" ref="contract_001"/>
+            <field name="date">2026-01-20</field>
+            <field name="hours_worked">8.5</field>
+            <field name="start_reading">841.5</field>
+            <field name="end_reading">850.0</field>
+            <field name="operator_id" ref="op_ahmed"/>
+            <field name="site_id" ref="site_alpha"/>
+        </record>
+
+        <record id="usage_log_002" model="rental.usage.log">
+            <field name="equipment_id" ref="eq_generator_200kva"/>
+            <field name="contract_id" ref="contract_001"/>
+            <field name="date">2026-01-20</field>
+            <field name="hours_worked">24.0</field>
+            <field name="start_reading">426.5</field>
+            <field name="end_reading">450.5</field>
+            <field name="site_id" ref="site_alpha"/>
+        </record>
+
+        <!-- ===== FUEL LOGS ===== -->
+        <record id="fuel_log_001" model="rental.fuel.log">
+            <field name="equipment_id" ref="eq_crane_100t"/>
+            <field name="contract_id" ref="contract_001"/>
+            <field name="date">2026-01-20</field>
+            <field name="liters">120.0</field>
+            <field name="cost_per_liter">3.5</field>
+            <field name="meter_reading">850.0</field>
+            <field name="filled_by">Ahmed Al Mansouri</field>
+            <field name="currency_id" ref="base.AED"/>
+        </record>
+
+        <record id="fuel_log_002" model="rental.fuel.log">
+            <field name="equipment_id" ref="eq_generator_200kva"/>
+            <field name="contract_id" ref="contract_001"/>
+            <field name="date">2026-01-20</field>
+            <field name="liters">200.0</field>
+            <field name="cost_per_liter">3.5</field>
+            <field name="meter_reading">450.5</field>
+            <field name="filled_by">Site Supervisor</field>
+            <field name="currency_id" ref="base.AED"/>
+        </record>
+
+        <!-- ===== FIELD EXPENSES ===== -->
+        <record id="expense_001" model="rental.expense">
+            <field name="name">Crane operator accommodation - January</field>
+            <field name="equipment_id" ref="eq_crane_100t"/>
+            <field name="contract_id" ref="contract_001"/>
+            <field name="operator_id" ref="op_ahmed"/>
+            <field name="date">2026-01-31</field>
+            <field name="expense_type">accommodation</field>
+            <field name="amount">3200</field>
+            <field name="responsibility">customer</field>
+            <field name="state">approved</field>
+            <field name="currency_id" ref="base.AED"/>
+        </record>
+
+        <record id="expense_002" model="rental.expense">
+            <field name="name">Transport permit for oversize load</field>
+            <field name="equipment_id" ref="eq_crane_100t"/>
+            <field name="contract_id" ref="contract_001"/>
+            <field name="date">2026-01-14</field>
+            <field name="expense_type">permit</field>
+            <field name="amount">850</field>
+            <field name="responsibility">customer</field>
+            <field name="state">approved</field>
+            <field name="currency_id" ref="base.AED"/>
+        </record>
+
+        <record id="expense_003" model="rental.expense">
+            <field name="name">Minor hydraulic hose repair - on site</field>
+            <field name="equipment_id" ref="eq_crane_55t"/>
+            <field name="date">2026-02-05</field>
+            <field name="expense_type">minor_repair</field>
+            <field name="amount">450</field>
+            <field name="responsibility">company</field>
+            <field name="state">draft</field>
+            <field name="currency_id" ref="base.AED"/>
+        </record>
+    </data>
+</odoo>
